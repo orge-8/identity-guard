@@ -1,0 +1,37 @@
+# identity-guard 配置示例
+# 真实生效的文件是插件目录下的 config.toml（由 MaiBot Runner 自动生成，勿手工新建到仓库）
+# 修改后保存即可热重载；改 _manifest.json 的 capabilities 才需要重启 MaiBot。
+
+[plugin]
+enabled = true                 # 总开关，关掉后不再记录、不再提醒
+config_version = "1.0.0"
+
+[guard]
+# ---- 判定参数 ----
+similarity_threshold = 0.86    # 相似度阈值（0~1）。调低更灵敏但更爱误报，0.80~0.90 较为合理
+min_name_length = 2            # 归一化后短于此长度的名字不参与比对（单字/纯符号容易误伤）
+
+# ---- 提醒开关 ----
+alert_enabled = true           # 是否在本群发身份提醒
+alert_on_rename = true         # 老成员改名撞名时提醒
+alert_on_new_member = true     # 新成员一进来就用了别人的名字时提醒
+
+# ---- 冷却（防刷屏）----
+alert_cooldown_seconds = 600        # 同一个人、同一个名字的提醒间隔
+group_alert_cooldown_seconds = 60   # 同一个群两次提醒的最小间隔
+
+# ---- 提醒文案模板 ----
+# 可用字段：name / user_id / old_name / new_name / other_desc / match_desc
+alert_template_rename = "⚠️【身份提醒】{name}（QQ {user_id}）刚把群名片从「{old_name}」改成「{new_name}」，与{other_desc}{match_desc}。改名片冒充他人是常见骗术，涉及转账、私聊借钱请务必先核实对方身份。"
+alert_template_newcomer = "⚠️【身份提醒】刚发言的 {name}（QQ {user_id}）与{other_desc}{match_desc}，请注意辨别身份，不要仅凭群名片判断对方是谁。"
+
+# ---- 名单（QQ 号，纯数字；也接受 "qq:123456" 写法）----
+trusted_user_ids = []          # 可信成员：本人改名不再提醒（别人冒用他们的名字照常提醒）
+admin_ids = []                 # 能用 /身份信任、/身份备注、/身份状态 的管理员
+ignored_user_ids = []          # 完全跳过：不建档、不告警（机器人小号、公告号等）
+
+# ---- 存储上限 ----
+max_history_names = 20         # 每人保留的历史名片数
+max_events = 300               # 每群保留的改名事件数
+max_members = 2000             # 每群成员档案上限（超出淘汰最久未发言且无标记的）
+auto_save_interval_seconds = 60  # 档案自动落盘间隔

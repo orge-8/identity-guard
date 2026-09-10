@@ -1,0 +1,8 @@
+config.toml
+__pycache__/
+*.py[cod]
+data/
+runtime/
+.venv/
+.idea/
+.vscode/

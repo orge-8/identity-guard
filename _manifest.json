@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "id": "org.mai-mai.identity-guard",
+  "version": "1.0.2",
+  "name": "群聊身份识别",
+  "description": "防止改群名片冒充他人：以 QQ 号为锚点记录每个成员的名片历史，改名或新人撞名时自动在群里发身份提醒，并提供 /身份 查询、/改名记录 追溯，以及供 LLM 核验身份的工具（涉及转账、自称群主等场景可直接查证）。",
+  "author": {
+    "name": "orge-8",
+    "url": "https://github.com/orge-8"
+  },
+  "license": "MIT",
+  "urls": {
+    "repository": "https://github.com/orge-8/identity-guard",
+    "issues": "https://github.com/orge-8/identity-guard/issues"
+  },
+  "host_application": {
+    "min_version": "1.0.0",
+    "max_version": "1.99.99"
+  },
+  "sdk": {
+    "min_version": "2.5.1",
+    "max_version": "2.99.99"
+  },
+  "dependencies": [],
+  "capabilities": [
+    "send.text",
+    "chat.get_stream_by_group_id",
+    "api.call"
+  ],
+  "i18n": {
+    "default_locale": "zh-CN"
+  }
+}
